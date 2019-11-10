@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="27cc8f5bc00848209887ea1f32839819" Name="Diagram1">
+        <EntityTypeShape EntityType="MyImageModel.Card" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.CardType" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Cart" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Customer" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Folder" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Image" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Invoice" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Order" Width="1.5" PointX="8.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.OrderStatu" Width="1.5" PointX="6" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.PaymentMethod" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Price" Width="1.5" PointX="6" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.PricePrintSize" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.PrintSize" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Role" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Store" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.sysdiagram" Width="1.5" PointX="10.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.Wishlist" Width="1.5" PointX="10.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyImageModel.CustRole" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <AssociationConnector Association="MyImageModel.Fk_Card_CardType" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Card_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_CardType_PaymentMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Cart_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Cart_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Customer_Folder" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_CustRole_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Image_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Order_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Wishlist_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Image_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Image_PrintSize" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Wishlist_Image" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Order_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Order_OrderStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_Order_PaymentMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_PricePrintSize_Price" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_PricePrintSize_PrintSize" ManuallyRouted="false" />
+        <AssociationConnector Association="MyImageModel.Fk_CustRole_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

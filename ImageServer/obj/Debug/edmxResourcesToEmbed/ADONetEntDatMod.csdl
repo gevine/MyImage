@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyImageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Card">
+    <Key>
+      <PropertyRef Name="CardID" />
+    </Key>
+    <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardTypeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardHolder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardExp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardCVV" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CardType" Relationship="Self.Fk_Card_CardType" FromRole="Card" ToRole="CardType" />
+    <NavigationProperty Name="Customer" Relationship="Self.Fk_Card_Customer" FromRole="Card" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="CardType">
+    <Key>
+      <PropertyRef Name="CardTypeID" />
+    </Key>
+    <Property Name="PayMethodID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardTypeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardTypeBIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardTypeLen" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CardTypeIcon" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Cards" Relationship="Self.Fk_Card_CardType" FromRole="CardType" ToRole="Card" />
+    <NavigationProperty Name="PaymentMethod" Relationship="Self.Fk_CardType_PaymentMethod" FromRole="CardType" ToRole="PaymentMethod" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="CartID" />
+    </Key>
+    <Property Name="ImgID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CartID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CartItem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CartQty" Type="Int32" Nullable="false" />
+    <Property Name="CartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.Fk_Cart_Customer" FromRole="Cart" ToRole="Customer" />
+    <NavigationProperty Name="Image" Relationship="Self.Fk_Cart_Image" FromRole="Cart" ToRole="Image" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustID" />
+    </Key>
+    <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustLastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustUser" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustBillingAddr" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustShippingAddr" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Cards" Relationship="Self.Fk_Card_Customer" FromRole="Customer" ToRole="Card" />
+    <NavigationProperty Name="Cart" Relationship="Self.Fk_Cart_Customer" FromRole="Customer" ToRole="Cart" />
+    <NavigationProperty Name="Folder" Relationship="Self.Fk_Customer_Folder" FromRole="Customer" ToRole="Folder" />
+    <NavigationProperty Name="CustRoles" Relationship="Self.Fk_CustRole_Customer" FromRole="Customer" ToRole="CustRole" />
+    <NavigationProperty Name="Images" Relationship="Self.Fk_Image_Customer" FromRole="Customer" ToRole="Image" />
+    <NavigationProperty Name="Orders" Relationship="Self.Fk_Order_Customer" FromRole="Customer" ToRole="Order" />
+    <NavigationProperty Name="Wishlist" Relationship="Self.Fk_Wishlist_Customer" FromRole="Customer" ToRole="Wishlist" />
+  </EntityType>
+  <EntityType Name="Folder">
+    <Key>
+      <PropertyRef Name="FolderID" />
+    </Key>
+    <Property Name="FolderID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FolderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.Fk_Customer_Folder" FromRole="Folder" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImgID" />
+    </Key>
+    <Property Name="OrderID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PrintSizeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ImgID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ImgFileName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Carts" Relationship="Self.Fk_Cart_Image" FromRole="Image" ToRole="Cart" />
+    <NavigationProperty Name="Customer" Relationship="Self.Fk_Image_Customer" FromRole="Image" ToRole="Customer" />
+    <NavigationProperty Name="Order" Relationship="Self.Fk_Image_Order" FromRole="Image" ToRole="Order" />
+    <NavigationProperty Name="PrintSize" Relationship="Self.Fk_Image_PrintSize" FromRole="Image" ToRole="PrintSize" />
+    <NavigationProperty Name="Wishlists" Relationship="Self.Fk_Wishlist_Image" FromRole="Image" ToRole="Wishlist" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.Fk_Order_Invoice" FromRole="Invoice" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderStatusID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InvoiceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PayMethodID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderItem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderQty" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.Fk_Order_Customer" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="Images" Relationship="Self.Fk_Image_Order" FromRole="Order" ToRole="Image" />
+    <NavigationProperty Name="Invoice" Relationship="Self.Fk_Order_Invoice" FromRole="Order" ToRole="Invoice" />
+    <NavigationProperty Name="OrderStatu" Relationship="Self.Fk_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
+    <NavigationProperty Name="PaymentMethod" Relationship="Self.Fk_Order_PaymentMethod" FromRole="Order" ToRole="PaymentMethod" />
+  </EntityType>
+  <EntityType Name="OrderStatu">
+    <Key>
+      <PropertyRef Name="OrderStatusID" />
+    </Key>
+    <Property Name="OrderStatusID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.Fk_Order_OrderStatus" FromRole="OrderStatus" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="PaymentMethod">
+    <Key>
+      <PropertyRef Name="PayMethodID" />
+    </Key>
+    <Property Name="PayMethodID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PayMethodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CardTypes" Relationship="Self.Fk_CardType_PaymentMethod" FromRole="PaymentMethod" ToRole="CardType" />
+    <NavigationProperty Name="Orders" Relationship="Self.Fk_Order_PaymentMethod" FromRole="PaymentMethod" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Price">
+    <Key>
+      <PropertyRef Name="PriceID" />
+    </Key>
+    <Property Name="PriceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PriceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PriceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Price1" Type="Int32" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PricePrintSizes" Relationship="Self.Fk_PricePrintSize_Price" FromRole="Price" ToRole="PricePrintSize" />
+  </EntityType>
+  <EntityType Name="PricePrintSize">
+    <Key>
+      <PropertyRef Name="PricePrintSizeID" />
+    </Key>
+    <Property Name="PricePrintSizeID" Type="Int32" Nullable="false" />
+    <Property Name="PriceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PrintSizeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Price" Relationship="Self.Fk_PricePrintSize_Price" FromRole="PricePrintSize" ToRole="Price" />
+    <NavigationProperty Name="PrintSize" Relationship="Self.Fk_PricePrintSize_PrintSize" FromRole="PricePrintSize" ToRole="PrintSize" />
+  </EntityType>
+  <EntityType Name="PrintSize">
+    <Key>
+      <PropertyRef Name="PrintSizeID" />
+    </Key>
+    <Property Name="PrintSizeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PrintSizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PrintSizeDemension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Images" Relationship="Self.Fk_Image_PrintSize" FromRole="PrintSize" ToRole="Image" />
+    <NavigationProperty Name="PricePrintSizes" Relationship="Self.Fk_PricePrintSize_PrintSize" FromRole="PrintSize" ToRole="PricePrintSize" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CustRoles" Relationship="Self.Fk_CustRole_Role" FromRole="Role" ToRole="CustRole" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="StoreID" />
+    </Key>
+    <Property Name="StoreID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StoreName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StoreAddr" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Wishlist">
+    <Key>
+      <PropertyRef Name="WishlistID" />
+    </Key>
+    <Property Name="ImgID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="WishlistID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="WishlistItem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="WishlistQty" Type="Int32" Nullable="false" />
+    <Property Name="WishlistDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.Fk_Wishlist_Customer" FromRole="Wishlist" ToRole="Customer" />
+    <NavigationProperty Name="Image" Relationship="Self.Fk_Wishlist_Image" FromRole="Wishlist" ToRole="Image" />
+  </EntityType>
+  <EntityType Name="CustRole">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="CustID" />
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoleID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.Fk_CustRole_Customer" FromRole="CustRole" ToRole="Customer" />
+    <NavigationProperty Name="Role" Relationship="Self.Fk_CustRole_Role" FromRole="CustRole" ToRole="Role" />
+  </EntityType>
+  <Association Name="Fk_Card_CardType">
+    <End Role="CardType" Type="Self.CardType" Multiplicity="1" />
+    <End Role="Card" Type="Self.Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CardType">
+        <PropertyRef Name="CardTypeID" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="CardTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Card_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Card" Type="Self.Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_CardType_PaymentMethod">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+    <End Role="CardType" Type="Self.CardType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="PayMethodID" />
+      </Principal>
+      <Dependent Role="CardType">
+        <PropertyRef Name="PayMethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Cart_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="CartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Cart_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Customer_Folder">
+    <End Role="Folder" Type="Self.Folder" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Folder">
+        <PropertyRef Name="FolderID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_CustRole_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustRole" Type="Self.CustRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="CustRole">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Image_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Wishlist_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Wishlist">
+        <PropertyRef Name="WishlistID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Image_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Image_PrintSize">
+    <End Role="PrintSize" Type="Self.PrintSize" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrintSize">
+        <PropertyRef Name="PrintSizeID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="PrintSizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Wishlist_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="1" />
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Wishlist">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_Invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_OrderStatus">
+    <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_PaymentMethod">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="PayMethodID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="PayMethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_PricePrintSize_Price">
+    <End Role="Price" Type="Self.Price" Multiplicity="1" />
+    <End Role="PricePrintSize" Type="Self.PricePrintSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Price">
+        <PropertyRef Name="PriceID" />
+      </Principal>
+      <Dependent Role="PricePrintSize">
+        <PropertyRef Name="PriceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_PricePrintSize_PrintSize">
+    <End Role="PrintSize" Type="Self.PrintSize" Multiplicity="1" />
+    <End Role="PricePrintSize" Type="Self.PricePrintSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrintSize">
+        <PropertyRef Name="PrintSizeID" />
+      </Principal>
+      <Dependent Role="PricePrintSize">
+        <PropertyRef Name="PrintSizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_CustRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="CustRole" Type="Self.CustRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="CustRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyImageEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cards" EntityType="Self.Card" />
+    <EntitySet Name="CardTypes" EntityType="Self.CardType" />
+    <EntitySet Name="Carts" EntityType="Self.Cart" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Folders" EntityType="Self.Folder" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
+    <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
+    <EntitySet Name="Prices" EntityType="Self.Price" />
+    <EntitySet Name="PricePrintSizes" EntityType="Self.PricePrintSize" />
+    <EntitySet Name="PrintSizes" EntityType="Self.PrintSize" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Stores" EntityType="Self.Store" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
+    <EntitySet Name="CustRoles" EntityType="Self.CustRole" />
+    <AssociationSet Name="Fk_Card_CardType" Association="Self.Fk_Card_CardType">
+      <End Role="CardType" EntitySet="CardTypes" />
+      <End Role="Card" EntitySet="Cards" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Card_Customer" Association="Self.Fk_Card_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Card" EntitySet="Cards" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_CardType_PaymentMethod" Association="Self.Fk_CardType_PaymentMethod">
+      <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+      <End Role="CardType" EntitySet="CardTypes" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Cart_Customer" Association="Self.Fk_Cart_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Cart_Image" Association="Self.Fk_Cart_Image">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Customer_Folder" Association="Self.Fk_Customer_Folder">
+      <End Role="Folder" EntitySet="Folders" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_CustRole_Customer" Association="Self.Fk_CustRole_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustRole" EntitySet="CustRoles" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Image_Customer" Association="Self.Fk_Image_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_Customer" Association="Self.Fk_Order_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Wishlist_Customer" Association="Self.Fk_Wishlist_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Wishlist" EntitySet="Wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Image_Order" Association="Self.Fk_Image_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Image_PrintSize" Association="Self.Fk_Image_PrintSize">
+      <End Role="PrintSize" EntitySet="PrintSizes" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Wishlist_Image" Association="Self.Fk_Wishlist_Image">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Wishlist" EntitySet="Wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_Invoice" Association="Self.Fk_Order_Invoice">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_OrderStatus" Association="Self.Fk_Order_OrderStatus">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_PaymentMethod" Association="Self.Fk_Order_PaymentMethod">
+      <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_PricePrintSize_Price" Association="Self.Fk_PricePrintSize_Price">
+      <End Role="Price" EntitySet="Prices" />
+      <End Role="PricePrintSize" EntitySet="PricePrintSizes" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_PricePrintSize_PrintSize" Association="Self.Fk_PricePrintSize_PrintSize">
+      <End Role="PrintSize" EntitySet="PrintSizes" />
+      <End Role="PricePrintSize" EntitySet="PricePrintSizes" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_CustRole_Role" Association="Self.Fk_CustRole_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="CustRole" EntitySet="CustRoles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

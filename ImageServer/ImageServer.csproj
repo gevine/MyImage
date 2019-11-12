@@ -91,6 +91,12 @@
     <Content Include="ADONetEntDatMod.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ADONetEntDatMod.Context.cs</LastGenOutput>
+      <DependentUpon>ADONetEntDatMod.edmx</DependentUpon>
+    </Content>
+    <Content Include="ADONetEntDatMod.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ADONetEntDatMod.edmx</DependentUpon>
+      <LastGenOutput>ADONetEntDatMod.cs</LastGenOutput>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -101,25 +107,86 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ADONetEntDatMod.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="ADONetEntDatMod.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
     <Compile Include="ADONetEntDatMod.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ADONetEntDatMod.edmx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Card.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CardType.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cart.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Customer.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustRole.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Folder.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Image.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminDAL.cs" />
+    <Compile Include="Order.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderStatu.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentMethod.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Price.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PricePrintSize.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrintSize.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Store.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Wishlist.cs">
+      <DependentUpon>ADONetEntDatMod.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="ADONetEntDatMod.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ADONetEntDatMod.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ADONetEntDatMod.edmx.diagram">
+    <Content Include="ADONetEntDatMod.edmx.diagram">
       <DependentUpon>ADONetEntDatMod.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -130,8 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

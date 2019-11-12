@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyImageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Card">
+    <Key>
+      <PropertyRef Name="CardID" />
+    </Key>
+    <Property Name="CustID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CardTypeID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CardID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CardHolder" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CardNumber" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CardExp" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CardCVV" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CardType">
+    <Key>
+      <PropertyRef Name="CardTypeID" />
+    </Key>
+    <Property Name="PayMethodID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CardTypeID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CardTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CardTypeBIN" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CardTypeLen" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CardTypeIcon" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="CartID" />
+    </Key>
+    <Property Name="ImgID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CartID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CartItem" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CartQty" Type="int" Nullable="false" />
+    <Property Name="CartDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustID" />
+    </Key>
+    <Property Name="CustID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CustFirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustLastName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="CustUser" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="CustPassword" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CustEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustBillingAddr" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CustShippingAddr" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MyImage.dbo.CustRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="CustRole">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="CustID" />
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="RoleID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Folder">
+    <Key>
+      <PropertyRef Name="FolderID" />
+    </Key>
+    <Property Name="FolderID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="FolderName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImgID" />
+    </Key>
+    <Property Name="OrderID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PrintSizeID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CustID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="ImgID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="ImgFileName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderStatusID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="InvoiceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PayMethodID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CustID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="OrderID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="OrderItem" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="OrderQty" Type="int" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrderStatus">
+    <Key>
+      <PropertyRef Name="OrderStatusID" />
+    </Key>
+    <Property Name="OrderStatusID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="OrderStatusName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PaymentMethod">
+    <Key>
+      <PropertyRef Name="PayMethodID" />
+    </Key>
+    <Property Name="PayMethodID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PayMethodName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Price">
+    <Key>
+      <PropertyRef Name="PriceID" />
+    </Key>
+    <Property Name="PriceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PriceName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PriceType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PricePrintSize">
+    <Key>
+      <PropertyRef Name="PricePrintSizeID" />
+    </Key>
+    <Property Name="PricePrintSizeID" Type="int" Nullable="false" />
+    <Property Name="PriceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PrintSizeID" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PrintSize">
+    <Key>
+      <PropertyRef Name="PrintSizeID" />
+    </Key>
+    <Property Name="PrintSizeID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PrintSizeName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PrintSizeDemension" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="StoreID" />
+    </Key>
+    <Property Name="StoreID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="StoreName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StoreAddr" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Wishlist">
+    <Key>
+      <PropertyRef Name="WishlistID" />
+    </Key>
+    <Property Name="ImgID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="WishlistID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="WishlistItem" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="WishlistQty" Type="int" Nullable="false" />
+    <Property Name="WishlistDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <Association Name="Fk_Card_CardType">
+    <End Role="CardType" Type="Self.CardType" Multiplicity="1" />
+    <End Role="Card" Type="Self.Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CardType">
+        <PropertyRef Name="CardTypeID" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="CardTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Card_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Card" Type="Self.Card" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Card">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_CardType_PaymentMethod">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+    <End Role="CardType" Type="Self.CardType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="PayMethodID" />
+      </Principal>
+      <Dependent Role="CardType">
+        <PropertyRef Name="PayMethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Cart_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="CartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Cart_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Customer_Folder">
+    <End Role="Folder" Type="Self.Folder" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Folder">
+        <PropertyRef Name="FolderID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_CustRole_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustRole" Type="Self.CustRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="CustRole">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_CustRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="CustRole" Type="Self.CustRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="CustRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Image_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Image_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Image_PrintSize">
+    <End Role="PrintSize" Type="Self.PrintSize" Multiplicity="1" />
+    <End Role="Image" Type="Self.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrintSize">
+        <PropertyRef Name="PrintSizeID" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="PrintSizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="CustID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_Invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_OrderStatus">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="OrderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Order_PaymentMethod">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="PayMethodID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="PayMethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_PricePrintSize_Price">
+    <End Role="Price" Type="Self.Price" Multiplicity="1" />
+    <End Role="PricePrintSize" Type="Self.PricePrintSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Price">
+        <PropertyRef Name="PriceID" />
+      </Principal>
+      <Dependent Role="PricePrintSize">
+        <PropertyRef Name="PriceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_PricePrintSize_PrintSize">
+    <End Role="PrintSize" Type="Self.PrintSize" Multiplicity="1" />
+    <End Role="PricePrintSize" Type="Self.PricePrintSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrintSize">
+        <PropertyRef Name="PrintSizeID" />
+      </Principal>
+      <Dependent Role="PricePrintSize">
+        <PropertyRef Name="PrintSizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Wishlist_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustID" />
+      </Principal>
+      <Dependent Role="Wishlist">
+        <PropertyRef Name="WishlistID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Fk_Wishlist_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="1" />
+    <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Wishlist">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyImageModelStoreContainer">
+    <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CardType" EntityType="Self.CardType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PricePrintSize" EntityType="Self.PricePrintSize" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrintSize" EntityType="Self.PrintSize" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustRole" EntityType="Self.CustRole" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CustRole].[ID] AS [ID], 
+    [CustRole].[CustID] AS [CustID], 
+    [CustRole].[RoleID] AS [RoleID], 
+    [CustRole].[CreatedAt] AS [CreatedAt]
+    FROM [dbo].[CustRole] AS [CustRole]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="Fk_Card_CardType" Association="Self.Fk_Card_CardType">
+      <End Role="CardType" EntitySet="CardType" />
+      <End Role="Card" EntitySet="Card" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Card_Customer" Association="Self.Fk_Card_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Card" EntitySet="Card" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_CardType_PaymentMethod" Association="Self.Fk_CardType_PaymentMethod">
+      <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+      <End Role="CardType" EntitySet="CardType" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Cart_Customer" Association="Self.Fk_Cart_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Cart_Image" Association="Self.Fk_Cart_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Customer_Folder" Association="Self.Fk_Customer_Folder">
+      <End Role="Folder" EntitySet="Folder" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_CustRole_Customer" Association="Self.Fk_CustRole_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustRole" EntitySet="CustRole" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_CustRole_Role" Association="Self.Fk_CustRole_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="CustRole" EntitySet="CustRole" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Image_Customer" Association="Self.Fk_Image_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Image" EntitySet="Image" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Image_Order" Association="Self.Fk_Image_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Image" EntitySet="Image" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Image_PrintSize" Association="Self.Fk_Image_PrintSize">
+      <End Role="PrintSize" EntitySet="PrintSize" />
+      <End Role="Image" EntitySet="Image" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_Customer" Association="Self.Fk_Order_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_Invoice" Association="Self.Fk_Order_Invoice">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_OrderStatus" Association="Self.Fk_Order_OrderStatus">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Order_PaymentMethod" Association="Self.Fk_Order_PaymentMethod">
+      <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_PricePrintSize_Price" Association="Self.Fk_PricePrintSize_Price">
+      <End Role="Price" EntitySet="Price" />
+      <End Role="PricePrintSize" EntitySet="PricePrintSize" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_PricePrintSize_PrintSize" Association="Self.Fk_PricePrintSize_PrintSize">
+      <End Role="PrintSize" EntitySet="PrintSize" />
+      <End Role="PricePrintSize" EntitySet="PricePrintSize" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Wishlist_Customer" Association="Self.Fk_Wishlist_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Wishlist" EntitySet="Wishlist" />
+    </AssociationSet>
+    <AssociationSet Name="Fk_Wishlist_Image" Association="Self.Fk_Wishlist_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Wishlist" EntitySet="Wishlist" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
